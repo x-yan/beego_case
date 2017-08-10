@@ -1,0 +1,113 @@
+swagger: "2.0"
+info:
+  title: mobile API
+  description: mobile has every tool to get any job done, so codename for the new
+    mobile APIs.
+  version: 1.0.0
+  contact:
+    email: astaxie@gmail.com
+basePath: /swagger
+paths:
+  /cms/products:
+    get:
+      tags:
+      - cms
+      description: Get Product list by some info
+      operationId: CMSController.Get Product list
+      parameters:
+      - in: query
+        name: category_id
+        description: category id
+        type: integer
+        format: int64
+      - in: query
+        name: brand_id
+        description: brand id
+        type: integer
+        format: int64
+      - in: query
+        name: query
+        description: query of search
+        type: string
+      - in: query
+        name: segment
+        description: segment
+        type: string
+      - in: query
+        name: sort
+        description: sort option
+        type: string
+      - in: query
+        name: dir
+        description: direction asc or desc
+        type: string
+      - in: query
+        name: offset
+        description: offset
+        type: integer
+        format: int64
+      - in: query
+        name: limit
+        description: count limit
+        type: integer
+        format: int64
+      - in: query
+        name: price
+        description: price
+        schema:
+          $ref: '#/definitions/.float'
+      - in: query
+        name: special_price
+        description: whether this is special price
+        type: boolean
+      - in: query
+        name: size
+        description: size filter
+        type: string
+      - in: query
+        name: color
+        description: color filter
+        type: string
+      - in: query
+        name: format
+        description: choose return format
+        type: boolean
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/.ProductList'
+        "400":
+          description: no enough input
+        "500":
+          description: get products common error
+  /cms/staticblock/{key}:
+    get:
+      tags:
+      - cms
+      description: get all the staticblock by key
+      operationId: CMSController.getStaticBlock
+      parameters:
+      - in: path
+        name: key
+        description: The email for login
+        required: true
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/.Customer'
+        "400":
+          description: Invalid email supplied
+        "404":
+          description: User not found
+definitions:
+  .Customer:
+    type: object
+  .ProductList:
+    type: object
+  .float:
+    type: object
+tags:
+- name: cms
+  description: |
+    CMS API
